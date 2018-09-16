@@ -1,33 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
+const ctrlIndex = require('../controllers/index');
+const ctrlAdmin = require('../controllers/admin');
+const ctrlLogin = require('../controllers/login');
 
-router.get('/', function(req, res, next) {
-  res.render('./pages/index', { title: 'Home' });
-});
+router.get('/', ctrlIndex.getIndex);
+router.post('/', ctrlIndex.postIndex);
 
-router.get('/login', function(req, res, next) {
-    res.render('./pages/login', { title: 'Login' });
-});
+router.get('/login.html', ctrlLogin.getLogin);
+router.post('/login.html', ctrlLogin.postLogin);
 
-router.get('/admin', function(req, res, next) {
-    res.render('./pages/admin', { title: 'Admin' });
-});
+router.get('/admin.html', ctrlAdmin.getAdmin);
+router.post('/admin.html', ctrlAdmin.postAdmin);
 
-
-router.post('/', function(req, res, next) {
-    // todo надо доделать
-    // res.json({ title: 'Home' });
-});
-
-router.post('/login', function(req, res, next) {
-    // todo надо доделать
-    // res.json({ title: 'Login' });
-});
-
-router.post('/admin', function(req, res, next) {
-    // todo надо доделать
-    // res.json({ title: 'Admin' });
-});
+router.post('/admin/skills', ctrlAdmin.postSkills);
+router.post('/admin/upload', ctrlAdmin.postUpload());
 
 module.exports = router;
